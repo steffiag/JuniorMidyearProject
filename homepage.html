@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PicClick</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center space-x-2">
+        <span class="text-3xl font-bold text-pink-600">PicClick</span>
+      </div>
+
+      <!-- Search -->
+      <div class="w-1/2">
+        <input 
+          type="text" 
+          placeholder="Search for inspiration..." 
+          class="w-full p-2 rounded-full border border-gray-300 focus:ring-2 focus:ring-pink-400 focus:outline-none"
+        />
+      </div>
+
+      <!-- Navigation -->
+      <nav class="flex space-x-4 items-center">
+        <a href="#" class="text-gray-600 hover:text-pink-600 font-medium">Home</a>
+        <a href="#" class="text-gray-600 hover:text-pink-600 font-medium">Boards</a>
+        <a href="login.html" class="bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition">Login</a>
+
+      </nav>
+    </div>
+  </header>
+
+  <!-- Masonry Grid -->
+  <main class="max-w-7xl mx-auto px-4 py-6">
+    <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+      <!-- Example Pins -->
+      <img class="rounded-lg w-full hover:opacity-90 transition" src="https://source.unsplash.com/random/400x500?sig=1" alt="Pin 1">
+      <img class="rounded-lg w-full hover:opacity-90 transition" src="https://source.unsplash.com/random/400x600?sig=2" alt="Pin 2">
+      <img class="rounded-lg w-full hover:opacity-90 transition" src="https://source.unsplash.com/random/400x400?sig=3" alt="Pin 3">
+      <img class="rounded-lg w-full hover:opacity-90 transition" src="https://source.unsplash.com/random/400x550?sig=4" alt="Pin 4">
+      <img class="rounded-lg w-full hover:opacity-90 transition" src="https://source.unsplash.com/random/400x450?sig=5" alt="Pin 5">
+      <img class="rounded-lg w-full hover:opacity-90 transition" src="https://source.unsplash.com/random/400x600?sig=6" alt="Pin 6">
+      <img class="rounded-lg w-full hover:opacity-90 transition" src="https://source.unsplash.com/random/400x520?sig=7" alt="Pin 7">
+      <img class="rounded-lg w-full hover:opacity-90 transition" src="https://source.unsplash.com/random/400x480?sig=8" alt="Pin 8">
+    </div>
+  </main>
+
+</body>
+</html>
