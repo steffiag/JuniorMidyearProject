@@ -11,7 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",
+<<<<<<< HEAD
     "express": "^4.21.2",
+=======
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+>>>>>>> 2404f3e1d5d1917acb206be2dc00df83ee6d0367
     "mysql2": "^3.10.0"
   }
 }
