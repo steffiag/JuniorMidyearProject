@@ -25,14 +25,29 @@
       </div>
 
       <nav class="flex space-x-4 items-center">
-        <button href="#"" class = "bg-pink-600 text-white px-4 py-2 mt-1 rounded-full hover:bg-pink-700 transition"><span class="material-symbols-outlined">add</span></button>
+        <button class = "bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center"><span class="material-symbols-outlined">add</span></button>
         <a href="#" class="text-gray-600 hover:text-pink-600 font-medium">Home</a>
         <a href="#" class="text-gray-600 hover:text-pink-600 font-medium">Boards</a>
-        <a href="login.html" class="bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition">Login</a>
-
+        <a href="#" class="bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition">Login</a>
       </nav>
     </div>
   </header>
+
+   <div id = "form" class = "modal">
+        <div class="modal-content">
+            <h1 id = "form-title">Add Pic!</h1>
+            <form action="/homepage" method="post">
+                <label for="photon-upload" class = "text-gray-600 font-medium">Please upload your pic!</label> <br>
+                <input type="file" id = "photo-upload" name="photo" accept = "image/*" id="hours" class = "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0
+           file:text-sm file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-700"
+> <br>
+                <div class="options">
+                    <input id = "submit" type="submit" value="Add Pic!">
+                    <button id = "close-btn" type = "button" onclick="closeForm(event)">Close!</button>
+                </div>
+                </form>
+            </div>
+    </div>
 
   <!-- Masonry Grid -->
   <main class="max-w-7xl mx-auto px-4 py-6">
