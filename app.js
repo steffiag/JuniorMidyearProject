@@ -31,6 +31,7 @@ app.get("/", (req, res) => {
         if (error) {
             res.status(500).send(error); 
         } else {
+          console.log(pics)
             res.render("homepage", {board_names:boards, pics:pics});
         }
     });
@@ -105,6 +106,29 @@ app.post("/new-board", (req, res) => {
         
     });
 });
+
+const get_board_specific_pics = `
+  SELECT name
+  FROM picture
+  WHERE board_id = ?
+`
+
+app.post('/board_pics', (req, res) => {
+  const boardId = req.body.board_id;
+  db.execute(get_board_specific_pics, [boardId], (error, results) => {
+    if (error) {
+      res.status(500).send(error);
+    } 
+    db.execute(get_all_board_items, (err, boards) => {  
+      if (err) return res.status(500).send(err);
+      console.log(results);
+      res.render('homepage', { board_names: boards, pics:results });
+    });
+  });
+});
+
+
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

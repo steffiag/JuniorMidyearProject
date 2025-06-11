@@ -132,7 +132,7 @@
               <select id="board" name="board">
                   <option value= "" class = "text-black px-4 py-2 transition">Unlisted</option>
                   <% for(let i=0; i < boards.length; i++) { %>
-                  <option value= "<%= i + 1 %>" class = "text-black px-4 py-2 transition"><%=boards[i].board_name%></option>
+                  <option value= "<%= boards[i].board_id %>" class = "text-black px-4 py-2 transition"><%=boards[i].board_name%></option>
                   <% } %>
                 </select>  
                 <div class="options flex items-center space-x-4">
@@ -164,10 +164,15 @@
           </div>
         <% for(let i = 0; i < boards.length; i++) { %>
         <% if (boards[i].preview) { %>
-            <div class="entry">
-                <img class="rounded-lg w-full hover:opacity-90 transition" src="<%= boards[i].preview %>">
-                <h6 id="title" class="text-gray-600 hover:text-pink-600 font-medium"><%= boards[i].board_name %></h6>
-        </div>
+            <form action="/board_pics" method="post">
+  <input type="hidden" name="board_id" value="<%= boards[i].board_id %>">
+  <button type="submit" class="entry">
+    <img src="<%= boards[i].preview %>" />
+    <h6><%= boards[i].board_name %></h6>
+  </button>
+</form>
+
+
         <% } %>
         <% } %>
         </div>
