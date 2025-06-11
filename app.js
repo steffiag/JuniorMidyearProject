@@ -37,6 +37,17 @@ app.get('/login', (req, res) => {
   
 });
 
+app.get("/boards", (req, res) => {
+    db.execute(get_all_picture_items, (error, results) => {
+        if (error) {
+            res.status(500).send(error); 
+        } else {
+            res.render("boards", {pics:results});
+        }
+    });
+});
+
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads/');
@@ -61,6 +72,19 @@ app.post("/upload", upload.single("photo"), (req, res) => {
         else {
             res.redirect("/");
         }
+    });
+});
+
+const create_board = `
+    INSERT INTO board (board_name)
+    VALUES (?)
+`;
+app.post("/boards", (req, res) => {
+    db.execute(create_board, [req.body.board], (error, results) => {
+        if(error){
+            res.status(500).send(error);
+        }
+        
     });
 });
 

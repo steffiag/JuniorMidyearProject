@@ -30,6 +30,19 @@
         height:25em;
         margin-block: 5px;
       }
+      .entry{
+        background-color: darkgray;
+        display:flex;
+        flex-direction: column;
+        text-align: center;
+        border-radius: 25px;
+        width:15em;
+        height:17em;
+      }
+      .entry img, .entry button{
+        width:15em;
+        height:15em;
+      }
   </style>
   <script>
     function openForm(){
@@ -85,12 +98,14 @@
 
       <nav class="flex space-x-4 items-center">
         <button class = "bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center" onclick="openForm()"><span class="material-symbols-outlined">add</span></button>
-        <a href="#" class="text-gray-600 hover:text-pink-600 font-medium">Home</a>
+        <a href="/" class="text-gray-600 hover:text-pink-600 font-medium">Home</a>
         <a href="/boards" class="text-gray-600 hover:text-pink-600 font-medium">Boards</a>
         <a href="/login" class="bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition">Login</a>
       </nav>
     </div>
   </header>
+
+  <h1 class="text-2xl font-bold text-pink-600 text-center">Your Boards</h1>
 
    <div id = "form" class = "modal">
         <div class="modal-content flex justify-center">
@@ -107,11 +122,21 @@
             </div>
     </div>
 
-  <!-- Masonry Grid -->
   <main class="max-w-7xl mx-auto px-4 py-6">
-    <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-        <% for(let i=0; i < pics.length; i++) { %>
-          <img class="rounded-lg w-full hover:opacity-90 transition" src="<%= pics[i].name %>">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div class="entry">
+            <button class = "text-white p-2 rounded-md hover:bg-pink-600 transition flex items-center justify-center" onclick="openForm()"><span class="material-symbols-outlined">add</span></button>
+            <h6 id ="title" class = "text-gray-600 hover:text-pink-600 font-medium">Add New Board!</h6>
+          </div>
+        <% for(let i=0; i < 2; i++) { %>
+          <div class="entry">
+            <img class="rounded-lg w-full hover:opacity-90 transition" src="<%= pics[0].name %>">
+            <h6 id ="title" class = "text-gray-600 hover:text-pink-600 font-medium">Hi</h6>
+          </div>
+          <div class="entry">
+            <img class="rounded-lg w-full hover:opacity-90 transition" src="<%= pics[1].name %>">
+            <h6 id ="title" class = "text-gray-600 hover:text-pink-600 font-medium">Hi</h6>
+          </div>
           <% } %>
     </div>
   </main>
