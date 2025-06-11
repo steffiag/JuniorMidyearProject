@@ -6,6 +6,7 @@
   <title>PicClick</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=add" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <style>
     #form, #board-form{
             display: none;
@@ -164,17 +165,21 @@
           </div>
         <% for(let i = 0; i < boards.length; i++) { %>
         <% if (boards[i].preview) { %>
-            <form action="/board_pics" method="post">
-  <input type="hidden" name="board_id" value="<%= boards[i].board_id %>">
-  <button type="submit" class="entry">
-    <img src="<%= boards[i].preview %>" />
-    <h6><%= boards[i].board_name %></h6>
-  </button>
-</form>
-
-
-        <% } %>
-        <% } %>
+            <div class="group entry relative">
+        <form action="/board_pics" method="post">
+            <input type="hidden" name="board_id" value="<%= boards[i].board_id %>">
+            <button type="submit" class="w-full h-full">
+            <img src="<%= boards[i].preview %>" />
+            <h6><%= boards[i].board_name %></h6>
+            </button>
+        </form>
+        <a class="delete-btn absolute top-2 right-2 bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center opacity-0 group-hover:opacity-100"
+            href="/boards/<%= encodeURIComponent(boards[i].board_name) %>/delete">
+            <span class="material-symbols-outlined">delete</span>
+        </a>
+        </div>
+    <% } %>
+    <% } %>
         </div>
   </main>
 

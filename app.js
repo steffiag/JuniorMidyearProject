@@ -126,6 +126,42 @@ app.post('/board_pics', (req, res) => {
 });
 
 
+const delete_pic = `
+    DELETE FROM picture
+    WHERE name = ?
+`
+
+app.get('/homepage/:name/delete', (req, res) => {
+  db.execute(delete_pic, [req.params.name], (err) => {
+    if (err) return res.status(500).send(err);
+    res.redirect('/');
+  });
+});
+
+const unassign_pics_from_board = `
+    UPDATE picture
+    SET board_id = NULL
+    WHERE board_id IN (
+      SELECT board_id FROM board WHERE board_name = ?
+    )
+`;
+
+const delete_board = `
+    DELETE FROM board
+    WHERE board_name = ?
+`;
+
+app.get('/boards/:name/delete', (req, res) => {
+    const boardName = req.params.name;
+    db.execute(unassign_pics_from_board, [boardName], (err) => {
+    if (err) return res.status(500).send(err);
+    });
+    db.execute(delete_board, [boardName], (err) => {
+      if (err) return res.status(500).send(err);
+      res.redirect('/boards');
+    });
+});
+
 
 
 app.listen(PORT, () => {
