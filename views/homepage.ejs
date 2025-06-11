@@ -30,6 +30,15 @@
         height:25em;
         margin-block: 5px;
       }
+      .choose{
+        display:flex;
+        justify-content: center;
+        display: none;
+      }
+      .choose select{
+        border: 2px solid black;
+        border-radius: 25px;
+      }
   </style>
   <script>
     function openForm(){
@@ -46,6 +55,7 @@
     document.addEventListener('DOMContentLoaded', function(){
       const upload = document.getElementById('photo-upload');
       const preview = document.getElementById('preview');
+      const board_choice = document.querySelector('.choose');
 
       upload.addEventListener('change', function(){
         const file = upload.files[0];
@@ -53,6 +63,7 @@
           const url = URL.createObjectURL(file);
           preview.src = url;
           preview.style.display = 'block';
+          board_choice.style.display = 'block';
         }
       })
     })
@@ -98,7 +109,15 @@
               <input type="file" id="photo-upload" name="photo" accept="image/*" class="hidden">
               <label for="photo-upload" class="cursor-pointer bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition">Choose Image</label>
               <img id = "preview" style = "display:none;" />
-
+              <div class="choose">
+                <label for="board" class = "text-black px-4 py-2 transition">Name Of Board</label>
+                <select id="board" name="board">
+                  <option value= "" class = "text-black px-4 py-2 transition">Unlisted</option>
+                  <% for(let i=0; i < board_names.length; i++) { %>
+                  <option value= "<%= board_names[i].board_id %>" class = "text-black px-4 py-2 transition"><%=board_names[i].board_name%></option>
+                  <% } %>
+                </select>  
+              </div>
                 <div class="options flex items-center space-x-4">
                     <input id = "submit" class = "bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center" type="submit" value="Add Pic!">
                     <button id = "close-btn" class = "bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center" type = "button" onclick="closeForm(event)">Close!</button>

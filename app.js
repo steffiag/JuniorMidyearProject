@@ -23,12 +23,17 @@ const get_all_picture_items = `
 `;
 
 app.get("/", (req, res) => {
-    db.execute(get_all_picture_items, (error, results) => {
+    db.execute(get_all_picture_items, (error, pics) => {
+        if (error) {
+            res.status(500).send(error); 
+        } 
+        db.execute(get_all_board_items, (error, boards) => {
         if (error) {
             res.status(500).send(error); 
         } else {
-            res.render("homepage", {pics:results});
+            res.render("homepage", {board_names:boards, pics:pics});
         }
+    });
     });
 });
 
@@ -37,12 +42,21 @@ app.get('/login', (req, res) => {
   
 });
 
+
+const get_all_board_items = `
+    SELECT board.board_id, board.board_name, (SELECT pic.name
+    FROM picture pic
+    WHERE pic.board_id = board.board_id
+    LIMIT 1) AS preview
+    FROM board board
+`;
+
 app.get("/boards", (req, res) => {
-    db.execute(get_all_picture_items, (error, results) => {
+    db.execute(get_all_board_items, (error, results) => {
         if (error) {
             res.status(500).send(error); 
         } else {
-            res.render("boards", {pics:results});
+            res.render("boards", {boards:results});
         }
     });
 });
@@ -59,13 +73,14 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const upload_image = `
-    INSERT INTO picture (name)
-    VALUES (?)
+    INSERT INTO picture (name, board_id)
+    VALUES (?, ?)
 `;
 
 
 app.post("/upload", upload.single("photo"), (req, res) => {
-    db.execute(upload_image, [req.file.filename], (error, results) => {
+    const boardId = req.body.board === "" ? null : req.body.board;
+    db.execute(upload_image, [req.file.filename, boardId], (error, results) => {
         if(error){
             res.status(500).send(error);
         }
@@ -79,10 +94,13 @@ const create_board = `
     INSERT INTO board (board_name)
     VALUES (?)
 `;
-app.post("/boards", (req, res) => {
+app.post("/new-board", (req, res) => {
     db.execute(create_board, [req.body.board], (error, results) => {
         if(error){
             res.status(500).send(error);
+        }
+        else {
+            res.redirect("/boards");
         }
         
     });

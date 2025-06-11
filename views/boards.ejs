@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=add" />
   <style>
-    #form{
+    #form, #board-form{
             display: none;
             background-color:white;
             border:2px solid darkgrey;
@@ -43,6 +43,11 @@
         width:15em;
         height:15em;
       }
+
+      #board{
+        border: 2px solid black;
+        border-radius: 25px;
+      }
   </style>
   <script>
     function openForm(){
@@ -56,6 +61,17 @@
             var form = document.getElementById('form');
             form.style.display = 'none';
     }
+
+    function openBoardForm(){
+            var form = document.getElementById('board-form');
+            form.style.display = 'block';
+          }
+    function closeBoardForm(event){
+            event.preventDefault();
+            var form = document.getElementById('board-form');
+            form.style.display = 'none';
+    }
+
     document.addEventListener('DOMContentLoaded', function(){
       const upload = document.getElementById('photo-upload');
       const preview = document.getElementById('preview');
@@ -113,7 +129,12 @@
               <input type="file" id="photo-upload" name="photo" accept="image/*" class="hidden">
               <label for="photo-upload" class="cursor-pointer bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition">Choose Image</label>
               <img id = "preview" style = "display:none;" />
-
+              <select id="board" name="board">
+                  <option value= "" class = "text-black px-4 py-2 transition">Unlisted</option>
+                  <% for(let i=0; i < boards.length; i++) { %>
+                  <option value= "<%= i + 1 %>" class = "text-black px-4 py-2 transition"><%=boards[i].board_name%></option>
+                  <% } %>
+                </select>  
                 <div class="options flex items-center space-x-4">
                     <input id = "submit" class = "bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center" type="submit" value="Add Pic!">
                     <button id = "close-btn" class = "bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center" type = "button" onclick="closeForm(event)">Close!</button>
@@ -122,23 +143,34 @@
             </div>
     </div>
 
+    <div id = "board-form" class = "modal">
+        <div class="modal-content flex justify-center">
+            <form action="/new-board" method="post" class="flex flex-col items-center space-y-4">
+                <label for="board" class = "text-black px-4 py-2 transition">Name Of Board</label>
+                <input type="text" class = "text-black px-4 py-2 transition text-center" name="board" id="board">
+                <div class="options flex items-center space-x-4">
+                    <input id = "submit" class = "bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center" type="submit" value="Add Board!">
+                    <button id = "close-btn" class = "bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center" type = "button" onclick="closeBoardForm(event)">Close!</button>
+                </div>
+                </form>
+            </div>
+    </div>
+
   <main class="max-w-7xl mx-auto px-4 py-6">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div class="entry">
-            <button class = "text-white p-2 rounded-md hover:bg-pink-600 transition flex items-center justify-center" onclick="openForm()"><span class="material-symbols-outlined">add</span></button>
+            <button class = "text-white p-2 rounded-md hover:bg-pink-600 transition flex items-center justify-center" onclick="openBoardForm()"><span class="material-symbols-outlined">add</span></button>
             <h6 id ="title" class = "text-gray-600 hover:text-pink-600 font-medium">Add New Board!</h6>
           </div>
-        <% for(let i=0; i < 2; i++) { %>
-          <div class="entry">
-            <img class="rounded-lg w-full hover:opacity-90 transition" src="<%= pics[0].name %>">
-            <h6 id ="title" class = "text-gray-600 hover:text-pink-600 font-medium">Hi</h6>
-          </div>
-          <div class="entry">
-            <img class="rounded-lg w-full hover:opacity-90 transition" src="<%= pics[1].name %>">
-            <h6 id ="title" class = "text-gray-600 hover:text-pink-600 font-medium">Hi</h6>
-          </div>
-          <% } %>
-    </div>
+        <% for(let i = 0; i < boards.length; i++) { %>
+        <% if (boards[i].preview) { %>
+            <div class="entry">
+                <img class="rounded-lg w-full hover:opacity-90 transition" src="<%= boards[i].preview %>">
+                <h6 id="title" class="text-gray-600 hover:text-pink-600 font-medium"><%= boards[i].board_name %></h6>
+        </div>
+        <% } %>
+        <% } %>
+        </div>
   </main>
 
 </body>
