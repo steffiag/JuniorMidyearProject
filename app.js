@@ -31,7 +31,6 @@ app.get("/", (req, res) => {
         if (error) {
             res.status(500).send(error); 
         } else {
-          console.log(pics)
             res.render("homepage", {board_names:boards, pics:pics});
         }
     });
@@ -121,7 +120,6 @@ app.post('/board_pics', (req, res) => {
     } 
     db.execute(get_all_board_items, (err, boards) => {  
       if (err) return res.status(500).send(err);
-      console.log(results);
       res.render('homepage', { board_names: boards, pics:results });
     });
   });
