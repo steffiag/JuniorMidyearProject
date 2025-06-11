@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
         if (error) {
             res.status(500).send(error); 
         } else {
-            res.render("homepage");
+            res.render("homepage", {pics:results});
         }
     });
 });
