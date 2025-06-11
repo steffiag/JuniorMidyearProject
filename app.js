@@ -16,7 +16,11 @@ app.use(express.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
   res.render('homepage');
-  res.send('Hello from Junior Midyear Project!');
+  
+});
+
+app.get('/login', (req, res) => {
+  res.render('login');
   
 });
 
