@@ -8,16 +8,33 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=add" />
   <style>
     #form{
+            display: none;
             background-color:white;
-            border:2px solid black;
+            border:2px solid darkgrey;
+            position: fixed;
+            inset:0;
+            z-index:10;
             border-radius:25px;
-            /* width:37%;
-            margin-left: 30%; */
+            width:35%;
             padding:10px;
+            justify-content: center;
+            justify-self: center;
+            align-self: center;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
     
   </style>
+  <script>
+    function openForm(){
+            var form = document.getElementById('form');
+            form.style.display = 'block';
+          }
+    function closeForm(event){
+            event.preventDefault();
+            var form = document.getElementById('form');
+            form.style.display = 'none';
+    }
+  </script>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -37,7 +54,7 @@
       </div>
 
       <nav class="flex space-x-4 items-center">
-        <button class = "bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center"><span class="material-symbols-outlined">add</span></button>
+        <button class = "bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center" onclick="openForm()"><span class="material-symbols-outlined">add</span></button>
         <a href="#" class="text-gray-600 hover:text-pink-600 font-medium">Home</a>
         <a href="#" class="text-gray-600 hover:text-pink-600 font-medium">Boards</a>
         <a href="/login" class="bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition">Login</a>
@@ -48,10 +65,8 @@
    <div id = "form" class = "modal">
         <div class="modal-content flex justify-center">
             <form action="/homepage" method="post">
-              <label for="photon-upload" class = "text-gray-600 font-medium">Add Pic</label> <br>
               <br><input type="file" id = "photo-upload" name="photo" accept = "image/*" id="hours" class = "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0
-           file:text-sm file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-700"
-> <br>
+           file:text-sm file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-700"> <br>
                 <div class="options flex items-center space-x-4">
                     <input id = "submit" class = "bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center" type="submit" value="Add Pic!">
                     <button id = "close-btn" class = "bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center" type = "button" onclick="closeForm(event)">Close!</button>
