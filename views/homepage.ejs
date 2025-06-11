@@ -56,6 +56,14 @@
         }
       })
     })
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.querySelector('form');
+      form.addEventListener('submit', function () {
+      document.getElementById('submit').disabled = true; 
+    })
+    })
+
   </script>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -86,7 +94,7 @@
 
    <div id = "form" class = "modal">
         <div class="modal-content flex justify-center">
-            <form action="/homepage" method="post" enctype="multipart/form-data" class="flex flex-col items-center space-y-4">
+            <form action="/upload" method="post" enctype="multipart/form-data" class="flex flex-col items-center space-y-4">
               <input type="file" id="photo-upload" name="photo" accept="image/*" class="hidden">
               <label for="photo-upload" class="cursor-pointer bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition">Choose Image</label>
               <img id = "preview" style = "display:none;" />
