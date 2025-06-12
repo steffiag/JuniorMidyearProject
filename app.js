@@ -18,7 +18,7 @@ app.use(express.urlencoded({extended: false}));
 
 
 const get_all_picture_items = `
-    SELECT name
+    SELECT *
     FROM picture
 `;
 
@@ -160,6 +160,20 @@ app.get('/boards/:name/delete', (req, res) => {
       if (err) return res.status(500).send(err);
       res.redirect('/boards');
     });
+});
+
+const update_board_location= 
+  `UPDATE picture 
+  SET board_id = ? 
+  WHERE name = ?`;
+;
+
+app.post('/update-board', (req, res) => {
+    const boardId = req.body.board_id === "" ? null : req.body.board_id;
+    db.execute(update_board_location, [boardId, req.body.pic_name], (err) => {
+    if (err) return res.status(500).send(err);
+    res.redirect('/');
+  });
 });
 
 

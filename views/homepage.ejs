@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <style>
-    #form{
+    #form, #edit-form{
             display: none;
             background-color:white;
             border:2px solid darkgrey;
@@ -50,6 +50,18 @@
     function closeForm(event){
             event.preventDefault();
             var form = document.getElementById('form');
+            form.style.display = 'none';
+    }
+
+    function openEditForm(picName){
+            var form = document.getElementById('edit-form');
+            const input = document.getElementById('edit-pic-name');
+            form.style.display = 'block';
+            input.value = picName;
+          }
+    function closeEditForm(event){
+            event.preventDefault();
+            var form = document.getElementById('edit-form');
             form.style.display = 'none';
     }
     document.addEventListener('DOMContentLoaded', function(){
@@ -126,6 +138,25 @@
             </div>
     </div>
 
+     <div id = "edit-form" class = "modal">
+        <div class="modal-content flex justify-center">
+            <form action="/update-board" method="POST" class="flex flex-col items-center space-y-4">
+            <input type="hidden" name="pic_name" id="edit-pic-name">
+            <label for="new-board" class="text-black px-4 py-2">Move this image to a different board:</label>
+            <select id="new-board" name="board_id" class="text-black px-4 py-2">
+              <option value="">Unlisted</option>
+              <% for(let i = 0; i < board_names.length; i++) { %>
+                <option value="<%= board_names[i].board_id %>"><%= board_names[i].board_name %></option>
+              <% } %>
+            </select>
+            <div class="options flex items-center space-x-4">
+              <input class="bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition" type="submit" value="Save Changes">
+              <button class="bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition" type="button" onclick="closeEditForm(event)">Cancel</button>
+            </div>
+          </form>
+            </div>
+    </div>
+
   <!-- Masonry Grid -->
   <main class="max-w-7xl mx-auto px-4 py-6">
     <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
@@ -136,9 +167,11 @@
           href="/homepage/<%= encodeURIComponent(pics[i].name) %>/delete">
         <span class="material-symbols-outlined">delete</span>
         </a>
+        <button class="delete-btn absolute top-2 right-14 bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center opacity-0 group-hover:opacity-100"
+        onclick="openEditForm('<%= pics[i].name %>')"> <span class="material-symbols-outlined">edit</span> </button>
   </div>
-
-          <% } %>
+  
+  <% } %>
     </div>
   </main>
 

@@ -173,7 +173,7 @@
             <h6><%= boards[i].board_name %></h6>
             </button>
         </form>
-        <a class="delete-btn absolute top-2 right-2 bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center opacity-0 group-hover:opacity-100"
+        <a class="delete-btn absolute top-2 right-2 bg-pink-600 z-20 text-white p-2 rounded-full hover:bg-pink-700 transition flex items-center justify-center opacity-0 group-hover:opacity-100"
             href="/boards/<%= encodeURIComponent(boards[i].board_name) %>/delete">
             <span class="material-symbols-outlined">delete</span>
         </a>
