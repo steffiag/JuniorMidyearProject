@@ -42,6 +42,10 @@ app.get('/login', (req, res) => {
   
 });
 
+app.get('/signup', (req, res) => {
+  res.render('signup');
+  
+});
 
 const get_all_board_items = `
     SELECT board.board_id, board.board_name, (SELECT pic.name
